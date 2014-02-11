@@ -63,7 +63,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
 	@Override
 	public ${entity.name} create(${entity.name} ${entity.name.toLowerCase()}) {
-		if(bookPersistence.load(${entity.name.toLowerCase()}.$fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes)()) != null) {
+		if(${entity.name.toLowerCase()}Persistence.load(${entity.name.toLowerCase()}.$fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes)()) != null) {
 			throw new IllegalStateException("already.exists");
 		}
 		${entity.name}Entity ${entity.name.toLowerCase()}Entity = new ${entity.name}Entity();
