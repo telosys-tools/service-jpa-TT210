@@ -70,7 +70,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
 	@Override
 	public ${entity.name} update(${entity.name} ${entity.name.toLowerCase()}) {
-		${entity.name}Entity ${entity.name.toLowerCase()}Entity = new ${entity.name}Entity();
+		${entity.name}Entity ${entity.name.toLowerCase()}Entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes));
 		${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
 		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
 		return ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}EntitySaved, ${entity.name}.class);
