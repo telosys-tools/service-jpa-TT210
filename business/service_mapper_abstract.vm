@@ -27,7 +27,7 @@ public abstract class AbstractServiceMapper {
 	 * @param outputClass Output bean class
 	 * @return New output bean
 	 */
-	public <I, O> O map(I input, Class<O> outputClass) {
+	protected <I, O> O map(I input, Class<O> outputClass) {
 		return getModelMapper().map(input, outputClass);
 	}
 
@@ -36,7 +36,7 @@ public abstract class AbstractServiceMapper {
 	 * @param input Input bean
 	 * @param output Output bean
 	 */
-	public <I, O> void map(I input, O output) {
+	protected <I, O> void map(I input, O output) {
 		getModelMapper().map(input, output);
 	}
 		
@@ -46,7 +46,7 @@ public abstract class AbstractServiceMapper {
 	 * @param outputClass Output beans class
 	 * @return New output beans
 	 */
-	public <I, O> List<O> map(Collection<I> inputs, Class<O> outputClass) {
+	protected <I, O> List<O> map(Collection<I> inputs, Class<O> outputClass) {
 		List<O> outputs = new ArrayList<O>();
 		for(I input : inputs) {
 			O output = map(input, outputClass);
@@ -61,7 +61,7 @@ public abstract class AbstractServiceMapper {
 	 * @param outputs Output beans
 	 * @param outputClass Output beans class
 	 */
-	public <I, O> void map(Collection<I> inputs, Collection<O> outputs, Class<O> outputClass) {
+	protected <I, O> void map(Collection<I> inputs, Collection<O> outputs, Class<O> outputClass) {
 		for(I input : inputs) {
 			O output = map(input, outputClass);
 			outputs.add(output);

@@ -43,7 +43,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 	@Override
 	public ${entity.name} findById($fn.argumentsListWithType($entity.keyAttributes)) {
 		${entity.name}Entity entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsList($entity.keyAttributes));
-		return ${entity.name.toLowerCase()}ServiceMapper.map(entity, ${entity.name}.class);
+		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 		List<${entity.name}Entity> entities = ${entity.name.toLowerCase()}Persistence.loadAll();
 		List<${entity.name}> beans = new ArrayList<${entity.name}>();
 		for(${entity.name}Entity entity : entities) {
-			beans.add(${entity.name.toLowerCase()}ServiceMapper.map(entity, ${entity.name}.class));
+			beans.add(${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity));
 		}
 		return beans;
 	}
@@ -63,17 +63,18 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
 	@Override
 	public ${entity.name} create(${entity.name} ${entity.name.toLowerCase()}) {
-		${entity.name}Entity ${entity.name.toLowerCase()}Entity = ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}, ${entity.name}Entity.class);
+		${entity.name}Entity ${entity.name.toLowerCase()}Entity = new ${entity.name}Entity();
+		${entity.name.toLowerCase()}ServiceMapper.map${entity.name}To${entity.name}Entity(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
 		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
-		return ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}EntitySaved, ${entity.name}.class);
+		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(${entity.name.toLowerCase()}EntitySaved);
 	}
 
 	@Override
 	public ${entity.name} update(${entity.name} ${entity.name.toLowerCase()}) {
 		${entity.name}Entity ${entity.name.toLowerCase()}Entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes));
-		${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
+		${entity.name.toLowerCase()}ServiceMapper.map${entity.name}To${entity.name}Entity(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
 		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
-		return ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}EntitySaved, ${entity.name}.class);
+		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(${entity.name.toLowerCase()}EntitySaved);
 	}
 
 	@Override
