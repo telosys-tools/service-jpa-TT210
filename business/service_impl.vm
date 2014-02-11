@@ -20,7 +20,7 @@ import ${ENTITY_PKG}.jpa.${entity.name}EntityKey;
 import $import;
 #end
 import ${ROOT_PKG}.business.service.${entity.name}Service;
-import ${ROOT_PKG}.business.service.mapping.MappingManager;
+import ${ROOT_PKG}.business.service.mapping.${entity.name}ServiceMapper;
 import ${ROOT_PKG}.persistence.PersistenceServiceProvider;
 import ${ROOT_PKG}.persistence.services.${entity.name}Persistence;
 import org.springframework.stereotype.Component;
@@ -34,24 +34,16 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 	private ${entity.name}Persistence ${entity.name.toLowerCase()}Persistence;
 
 	@Resource
-	private MappingManager mappingManager;
+	private ${entity.name}ServiceMapper ${entity.name.toLowerCase()}ServiceMapper;
 	
 	public ${entity.name}ServiceImpl() {
 		${entity.name.toLowerCase()}Persistence = PersistenceServiceProvider.getService(${entity.name}Persistence.class);
-	}
-	
-	private ${entity.name} map(${entity.name}Entity ${entity.name.toLowerCase()}Entity) {
-		return mappingManager.map(${entity.name.toLowerCase()}Entity, ${entity.name}.class);
-	}
-
-	private ${entity.name}Entity map(${entity.name} ${entity.name.toLowerCase()}) {
-		return mappingManager.map(${entity.name.toLowerCase()}, ${entity.name}Entity.class);
 	}
 		
 	@Override
 	public ${entity.name} findById($fn.argumentsListWithType($entity.keyAttributes)) {
 		${entity.name}Entity entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsList($entity.keyAttributes));
-		return map(entity);
+		return ${entity.name.toLowerCase()}ServiceMapper.map(entity, ${entity.name}.class);
 	}
 
 	@Override
@@ -59,7 +51,7 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 		List<${entity.name}Entity> entities = ${entity.name.toLowerCase()}Persistence.loadAll();
 		List<${entity.name}> beans = new ArrayList<${entity.name}>();
 		for(${entity.name}Entity entity : entities) {
-			beans.add(map(entity));
+			beans.add(${entity.name.toLowerCase()}ServiceMapper.map(entity, ${entity.name}.class));
 		}
 		return beans;
 	}
@@ -71,12 +63,17 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
 	@Override
 	public ${entity.name} create(${entity.name} ${entity.name.toLowerCase()}) {
-		return map(${entity.name.toLowerCase()}Persistence.save(map(${entity.name.toLowerCase()})));
+		${entity.name}Entity ${entity.name.toLowerCase()}Entity = ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}, ${entity.name}Entity.class);
+		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
+		return ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}EntitySaved, ${entity.name}.class);
 	}
 
 	@Override
 	public ${entity.name} update(${entity.name} ${entity.name.toLowerCase()}) {
-		return map(${entity.name.toLowerCase()}Persistence.save(map(${entity.name.toLowerCase()})));
+		${entity.name}Entity ${entity.name.toLowerCase()}Entity = new ${entity.name}Entity();
+		${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
+		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
+		return ${entity.name.toLowerCase()}ServiceMapper.map(${entity.name.toLowerCase()}EntitySaved, ${entity.name}.class);
 	}
 
 	@Override
@@ -90,6 +87,14 @@ public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
 	public void set${entity.name}Persistence(${entity.name}Persistence ${entity.name.toLowerCase()}Persistence) {
 		this.${entity.name.toLowerCase()}Persistence = ${entity.name.toLowerCase()}Persistence;
+	}
+
+	public ${entity.name}ServiceMapper get${entity.name}ServiceMapper() {
+		return ${entity.name.toLowerCase()}ServiceMapper;
+	}
+
+	public void set${entity.name}ServiceMapper(${entity.name}ServiceMapper ${entity.name.toLowerCase()}ServiceMapper) {
+		this.${entity.name.toLowerCase()}ServiceMapper = ${entity.name.toLowerCase()}ServiceMapper;
 	}
 
 }
