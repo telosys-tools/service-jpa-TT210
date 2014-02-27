@@ -31,74 +31,74 @@ import org.springframework.stereotype.Component;
 @Component
 public class ${entity.name}ServiceImpl implements ${entity.name}Service {
 
-	private ${entity.name}Persistence ${entity.name.toLowerCase()}Persistence;
+	private ${entity.name}Persistence ${fn.uncapitalize($entity.name)}Persistence;
 
 	@Resource
-	private ${entity.name}ServiceMapper ${entity.name.toLowerCase()}ServiceMapper;
+	private ${entity.name}ServiceMapper ${fn.uncapitalize($entity.name)}ServiceMapper;
 	
 	public ${entity.name}ServiceImpl() {
-		${entity.name.toLowerCase()}Persistence = PersistenceServiceProvider.getService(${entity.name}Persistence.class);
+		${fn.uncapitalize($entity.name)}Persistence = PersistenceServiceProvider.getService(${entity.name}Persistence.class);
 	}
 		
 	@Override
 	public ${entity.name} findById($fn.argumentsListWithType($entity.keyAttributes)) {
-		${entity.name}Entity entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsList($entity.keyAttributes));
-		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity);
+		${entity.name}Entity entity = ${fn.uncapitalize($entity.name)}Persistence.load($fn.argumentsList($entity.keyAttributes));
+		return ${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity);
 	}
 
 	@Override
 	public List<${entity.name}> findAll() {
-		List<${entity.name}Entity> entities = ${entity.name.toLowerCase()}Persistence.loadAll();
+		List<${entity.name}Entity> entities = ${fn.uncapitalize($entity.name)}Persistence.loadAll();
 		List<${entity.name}> beans = new ArrayList<${entity.name}>();
 		for(${entity.name}Entity entity : entities) {
-			beans.add(${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity));
+			beans.add(${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}EntityTo${entity.name}(entity));
 		}
 		return beans;
 	}
 
 	@Override
-	public ${entity.name} save(${entity.name} ${entity.name.toLowerCase()}) {
-		return update(${entity.name.toLowerCase()}) ;
+	public ${entity.name} save(${entity.name} ${fn.uncapitalize($entity.name)}) {
+		return update(${fn.uncapitalize($entity.name)}) ;
 	}
 
 	@Override
-	public ${entity.name} create(${entity.name} ${entity.name.toLowerCase()}) {
-		if(${entity.name.toLowerCase()}Persistence.load($fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes)) != null) {
+	public ${entity.name} create(${entity.name} ${fn.uncapitalize($entity.name)}) {
+		if(${fn.uncapitalize($entity.name)}Persistence.load($fn.argumentsListWithGetter(${fn.uncapitalize($entity.name)},$entity.keyAttributes)) != null) {
 			throw new IllegalStateException("already.exists");
 		}
-		${entity.name}Entity ${entity.name.toLowerCase()}Entity = new ${entity.name}Entity();
-		${entity.name.toLowerCase()}ServiceMapper.map${entity.name}To${entity.name}Entity(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
-		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
-		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(${entity.name.toLowerCase()}EntitySaved);
+		${entity.name}Entity ${fn.uncapitalize($entity.name)}Entity = new ${entity.name}Entity();
+		${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}To${entity.name}Entity(${fn.uncapitalize($entity.name)}, ${fn.uncapitalize($entity.name)}Entity);
+		${entity.name}Entity ${fn.uncapitalize($entity.name)}EntitySaved = ${fn.uncapitalize($entity.name)}Persistence.save(${fn.uncapitalize($entity.name)}Entity);
+		return ${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}EntityTo${entity.name}(${fn.uncapitalize($entity.name)}EntitySaved);
 	}
 
 	@Override
-	public ${entity.name} update(${entity.name} ${entity.name.toLowerCase()}) {
-		${entity.name}Entity ${entity.name.toLowerCase()}Entity = ${entity.name.toLowerCase()}Persistence.load($fn.argumentsListWithGetter(${entity.name.toLowerCase()},$entity.keyAttributes));
-		${entity.name.toLowerCase()}ServiceMapper.map${entity.name}To${entity.name}Entity(${entity.name.toLowerCase()}, ${entity.name.toLowerCase()}Entity);
-		${entity.name}Entity ${entity.name.toLowerCase()}EntitySaved = ${entity.name.toLowerCase()}Persistence.save(${entity.name.toLowerCase()}Entity);
-		return ${entity.name.toLowerCase()}ServiceMapper.map${entity.name}EntityTo${entity.name}(${entity.name.toLowerCase()}EntitySaved);
+	public ${entity.name} update(${entity.name} ${fn.uncapitalize($entity.name)}) {
+		${entity.name}Entity ${fn.uncapitalize($entity.name)}Entity = ${fn.uncapitalize($entity.name)}Persistence.load($fn.argumentsListWithGetter(${fn.uncapitalize($entity.name)},$entity.keyAttributes));
+		${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}To${entity.name}Entity(${fn.uncapitalize($entity.name)}, ${fn.uncapitalize($entity.name)}Entity);
+		${entity.name}Entity ${fn.uncapitalize($entity.name)}EntitySaved = ${fn.uncapitalize($entity.name)}Persistence.save(${fn.uncapitalize($entity.name)}Entity);
+		return ${fn.uncapitalize($entity.name)}ServiceMapper.map${entity.name}EntityTo${entity.name}(${fn.uncapitalize($entity.name)}EntitySaved);
 	}
 
 	@Override
 	public void delete($fn.argumentsListWithType($entity.keyAttributes)) {
-		${entity.name.toLowerCase()}Persistence.delete($fn.argumentsList($entity.keyAttributes));
+		${fn.uncapitalize($entity.name)}Persistence.delete($fn.argumentsList($entity.keyAttributes));
 	}
 
 	public ${entity.name}Persistence get${entity.name}Persistence() {
-		return ${entity.name.toLowerCase()}Persistence;
+		return ${fn.uncapitalize($entity.name)}Persistence;
 	}
 
-	public void set${entity.name}Persistence(${entity.name}Persistence ${entity.name.toLowerCase()}Persistence) {
-		this.${entity.name.toLowerCase()}Persistence = ${entity.name.toLowerCase()}Persistence;
+	public void set${entity.name}Persistence(${entity.name}Persistence ${fn.uncapitalize($entity.name)}Persistence) {
+		this.${fn.uncapitalize($entity.name)}Persistence = ${fn.uncapitalize($entity.name)}Persistence;
 	}
 
 	public ${entity.name}ServiceMapper get${entity.name}ServiceMapper() {
-		return ${entity.name.toLowerCase()}ServiceMapper;
+		return ${fn.uncapitalize($entity.name)}ServiceMapper;
 	}
 
-	public void set${entity.name}ServiceMapper(${entity.name}ServiceMapper ${entity.name.toLowerCase()}ServiceMapper) {
-		this.${entity.name.toLowerCase()}ServiceMapper = ${entity.name.toLowerCase()}ServiceMapper;
+	public void set${entity.name}ServiceMapper(${entity.name}ServiceMapper ${fn.uncapitalize($entity.name)}ServiceMapper) {
+		this.${fn.uncapitalize($entity.name)}ServiceMapper = ${fn.uncapitalize($entity.name)}ServiceMapper;
 	}
 
 }
