@@ -31,23 +31,6 @@
 			<artifactId>spring-core</artifactId>
 			<version>${DOLLAR}{spring.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${DOLLAR}{spring.version}</version>
-		</dependency>
-		
-		<!-- Tiles -->
-    	<dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-core</artifactId>
-            <version>${DOLLAR}{tiles.version}</version>
-        </dependency>
-    	<dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-jsp</artifactId>
-            <version>${DOLLAR}{tiles.version}</version>
-        </dependency>
         	
 		<!-- Bean validation -->
 		<dependency>
