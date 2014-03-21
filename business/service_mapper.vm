@@ -137,4 +137,8 @@ public class ${entity.name}ServiceMapper extends AbstractServiceMapper {
 		return modelMapper;
 	}
 
+	protected void setModelMapper(ModelMapper modelMapper) {
+		this.modelMapper = modelMapper;
+	}
+
 }
